@@ -5,6 +5,9 @@ import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import helmet from 'helmet';
+import cors from 'cors';
+import rateLimit from 'express-rate-limit';
 
 dotenv.config();
 
@@ -15,7 +18,23 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
-  app.use(express.json());
+  // Security Middleware
+  app.use(helmet({
+    contentSecurityPolicy: false, // Disabled for dev server compatibility
+  }));
+  app.use(cors());
+  app.use(express.json({ limit: '1mb' }));
+
+  // Rate Limiting to prevent API abuse
+  const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { error: 'Too many requests, please try again later.' }
+  });
+
+  app.use('/api', apiLimiter);
 
   app.get('/api/health', (req, res) => {
     res.json({ status: 'ok' });

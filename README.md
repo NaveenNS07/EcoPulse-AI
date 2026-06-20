@@ -1,20 +1,32 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# EcoPulse - Carbon Footprint Tracker
 
-# Run and deploy your AI Studio app
+## Overview
+EcoPulse is a modern, AI-powered sustainability application designed to help individuals track, understand, and reduce their daily carbon footprint. 
 
-This contains everything you need to run your app locally.
+The application provides:
+- Meaningful footprint tracking.
+- An AI Sustainability Coach offering personalized advice.
+- Community and Challenge dashboards for gamification.
 
-View your app in AI Studio: https://ai.studio/apps/f17a762a-85f9-4685-a6ff-8d3ba6985d63
-
-## Run Locally
-
-**Prerequisites:**  Node.js
-
+## Setup Guide
+Our project is full-stack, powered by `Vite`, `React`, and `Express`. 
 
 1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+   ```bash
+   npm i
+   ```
+2. Setup environment variables (add to `.env`):
+   ```
+   GEMINI_API_KEY=your_key
+   ```
+3. Boot up the server:
+   ```bash
+   npm run build && npm start
+   ```
+
+## Documentation Reference
+- Security: [SECURITY.md](SECURITY.md)
+- Testing: [TESTING.md](TESTING.md)
+- Accessibility: [ACCESSIBILITY.md](ACCESSIBILITY.md)
+- App Architecture: [ARCHITECTURE.md](ARCHITECTURE.md)
+- Contributing: [CONTRIBUTING.md](CONTRIBUTING.md)
