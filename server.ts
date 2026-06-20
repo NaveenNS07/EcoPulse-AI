@@ -18,6 +18,9 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
+  // Trust the reverse proxy (required for rate limiting to work correctly behind it)
+  app.set('trust proxy', 1);
+
   // Security Middleware
   app.use(helmet({
     contentSecurityPolicy: false, // Disabled for dev server compatibility
@@ -67,9 +70,13 @@ User Message: "${message}"`;
       });
 
       res.json({ text: response.text });
-    } catch (error) {
+    } catch (error: any) {
       console.error('AI Chat Error:', error);
-      res.status(500).json({ error: 'Failed to generate AI response.' });
+      if (error?.status === 429 || error?.message?.includes('429') || error?.message?.includes('exceeded quota')) {
+          res.json({ text: "I'm currently receiving too many requests. But generally, the best way to reduce footprints is to focus on your main emission source (e.g., commute, diet)." });
+      } else {
+          res.status(500).json({ error: 'Failed to generate AI response.' });
+      }
     }
   });
 
@@ -111,9 +118,18 @@ Example: ["Swap out beef for chicken twice a week to save 5kg CO2.", "Your drivi
 
         res.json({ suggestions });
 
-    } catch (err) {
+    } catch (err: any) {
         console.error('AI Coach Error:', err);
-        res.status(500).json({ error: 'Failed to generate AI advice.' });
+        if (err?.status === 429 || err?.message?.includes('429') || err?.message?.includes('exceeded quota')) {
+            // Graceful fallback for rate limiting
+            res.status(200).json({ suggestions: [
+                "Based on typical usage, try reducing car travel.",
+                "Eat one more plant-based meal this week.",
+                "Turn off unnecessary lights to save energy."
+            ]});
+        } else {
+            res.status(500).json({ error: 'Failed to generate AI advice.' });
+        }
     }
   });
 

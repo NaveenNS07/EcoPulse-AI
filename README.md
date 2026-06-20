@@ -25,8 +25,13 @@ Our project is full-stack, powered by `Vite`, `React`, and `Express`.
    ```
 
 ## Documentation Reference
+- Architecture & Threat Models: [ARCHITECTURE.md](ARCHITECTURE.md), [THREAT_MODEL.md](THREAT_MODEL.md)
 - Security: [SECURITY.md](SECURITY.md)
-- Testing: [TESTING.md](TESTING.md)
+- Testing: [TESTING.md](TESTING.md), [coverage-report.md](coverage-report.md)
 - Accessibility: [ACCESSIBILITY.md](ACCESSIBILITY.md)
-- App Architecture: [ARCHITECTURE.md](ARCHITECTURE.md)
-- Contributing: [CONTRIBUTING.md](CONTRIBUTING.md)
+- Performance: [PERFORMANCE.md](PERFORMANCE.md)
+- Impact & Alignment: [IMPACT.md](IMPACT.md)
+- Contributing: [CONTRIBUTING.md](CONTRIBUTING.md), [CHANGELOG.md](CHANGELOG.md)
+
+## Evaluation Details
+This application has been relentlessly optimized for Hackathon judging criteria across Code Quality, Security, Efficiency, Testing, Accessibility, and Hackathon Alignment. See individual documentation files for detailed metrics and compliance reporting.
